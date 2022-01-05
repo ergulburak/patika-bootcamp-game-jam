@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : Singleton<UIManager>
 {
+  private UIState uiState = UIState.Menu;
   [SerializeField] private GameObject prepareUI;
   [SerializeField] private GameObject mainGameUI;
   [SerializeField] private GameObject finishGameUI;
@@ -83,7 +84,7 @@ public class UIManager : Singleton<UIManager>
   public void UpdateCoinInfo()
   {
     earnedCoinText.text = currentCoinText.text;
-    totalCoinText.text = PlayerPrefs.GetInt("TotalCoin").ToString();
+    totalCoinText.text = $"{SaveManager.Instance.GetCoin()}";
   }
 
   private void SetPlayerPrefs()
@@ -98,7 +99,7 @@ public class UIManager : Singleton<UIManager>
       PlayerPrefs.SetInt("SliderLevel", sliderLevel);
     }
 
-    sliderLevelText.text = PlayerPrefs.GetInt("SliderLevel").ToString();
+    sliderLevelText.text = $"{SaveManager.Instance.GetCurrentLevel()}";
   }
 
   public void RetryButton()
@@ -109,7 +110,7 @@ public class UIManager : Singleton<UIManager>
 
   public void NextLevelButton()
   {
-    PlayerPrefs.SetInt("SliderLevel", PlayerPrefs.GetInt("SliderLevel1") + 1);
-    sliderLevelText.text = PlayerPrefs.GetInt("SliderLevel").ToString();
+    SaveManager.Instance.LevelUp();
+    sliderLevelText.text = $"{SaveManager.Instance.GetCurrentLevel()}";
   }
 }
