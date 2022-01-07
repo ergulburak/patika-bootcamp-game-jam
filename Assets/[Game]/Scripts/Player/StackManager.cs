@@ -7,8 +7,11 @@ using Sirenix.Utilities;
 using UnityEngine;
 
 
-public class StackManager : MovementController
+public class StackManager : MonoBehaviour
 {
+  [FoldoutGroup("Stack Settings")] [SerializeField]
+  protected Transform playerPivot;
+
   [FoldoutGroup("Stack Settings")] [SerializeField] [Range(0f, 2f)]
   private float offsetMultiplier;
 
@@ -24,10 +27,14 @@ public class StackManager : MovementController
   [FoldoutGroup("Stack Settings")] [SerializeField] [Range(0f, 2f)]
   private float pulseDelay;
 
-  protected List<GameObject> collectables = new List<GameObject>();
+  private List<GameObject> collectables = new List<GameObject>();
 
+  public int GetCollectablesCount()
+  {
+    return collectables.Count;
+  }
 
-  private void AddCollectable(GameObject collectable)
+  public void AddCollectable(GameObject collectable)
   {
     if (collectables.Contains(collectable)) return;
     collectables.Add(collectable);
@@ -39,7 +46,7 @@ public class StackManager : MovementController
         collectables.Count * offsetMultiplier);
   }
 
-  protected void WatchTheFront()
+  public void WatchTheFront()
   {
     foreach (var collectable in collectables.ToList())
     {

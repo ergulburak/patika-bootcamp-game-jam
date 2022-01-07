@@ -1,40 +1,34 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class MovementController : Singleton<MovementController>
+public class MovementController : MonoBehaviour
 {
-  [FoldoutGroup("Swerve Input Settings")] [SerializeField] [Range(10f, 150f)]
+  [FoldoutGroup("Movement Settings")] [SerializeField] [Range(10f, 150f)]
   private float swerveSpeed;
 
-  [FoldoutGroup("Swerve Input Settings")] [SerializeField] [Range(0.005f, 0.05f)]
+  [FoldoutGroup("Movement Settings")] [SerializeField] [Range(0.005f, 0.05f)]
   private float minDistanceToMove;
 
-  [FoldoutGroup("Swerve Input Settings")] [SerializeField]
+  [FoldoutGroup("Movement Settings")] [SerializeField]
   private float xBound;
 
-  [FoldoutGroup("Swerve Input Settings")] [SerializeField]
+  [FoldoutGroup("Movement Settings")] [SerializeField]
   private float minSwerveDistance;
 
-  [FoldoutGroup("Swerve Input Settings")] [SerializeField]
-  protected Transform playerPivot;
+  [FoldoutGroup("Movement Settings")] [SerializeField]
+  private Transform playerPivot;
 
-  [FoldoutGroup("Player Settings")] [SerializeField]
-  protected float forwardSpeed;
+  [FoldoutGroup("Movement Settings")] [SerializeField]
+  private float forwardSpeed;
 
   private Vector2 touchEventArgs = Vector2.zero;
 
-
-  public float GetPlayerZPosition()
+  public void MoveForward()
   {
-    return transform.position.z;
+    transform.position += Vector3.forward * forwardSpeed * Time.deltaTime;
   }
 
-  protected void MoveForward(Transform player)
-  {
-    player.position += Vector3.forward * forwardSpeed * Time.deltaTime;
-  }
-
-  protected void MoveHorizontal(Vector2 args)
+  public void MoveHorizontal(Vector2 args)
   {
     var distance = Vector2.Distance(args, touchEventArgs);
 
