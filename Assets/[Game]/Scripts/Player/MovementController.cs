@@ -31,10 +31,7 @@ public class MovementController : Singleton<MovementController>
 
   protected void MoveForward(Transform player)
   {
-    var playerPos = player.position;
-    playerPos = Vector3.MoveTowards(playerPos, new Vector3(playerPos.x, playerPos.y, playerPos.z + 1f),
-      Time.fixedDeltaTime * forwardSpeed);
-    player.position = playerPos;
+    player.position += Vector3.forward * forwardSpeed * Time.deltaTime;
   }
 
   protected void MoveHorizontal(Vector2 args)
