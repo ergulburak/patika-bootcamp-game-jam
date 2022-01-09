@@ -57,7 +57,9 @@ public class MiniGamesManager : MonoBehaviour
     {
       for (int i = totalWin; i < 0; i++)
       {
-        collectables.Remove(collectables.Last());
+        var lastColl = collectables.Last();
+        collectables.Remove(lastColl);
+        Destroy(lastColl);
       }
     }
 

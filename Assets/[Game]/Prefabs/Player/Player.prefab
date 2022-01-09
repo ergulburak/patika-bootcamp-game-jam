@@ -273,7 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swerveSpeed: 30
   minDistanceToMove: 0.03
-  xBound: 4.5
+  xBound: 3.5
   minSwerveDistance: 0.03
   playerPivot: {fileID: 1334490906985700139}
   forwardSpeed: 10
