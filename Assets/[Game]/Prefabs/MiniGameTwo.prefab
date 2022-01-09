@@ -405,7 +405,7 @@ RectTransform:
   m_GameObject: {fileID: 2452303880196232736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.1713, y: 2.1713, z: 2.1713}
   m_Children: []
   m_Father: {fileID: 8799803349707722946}
   m_RootOrder: 1
@@ -913,7 +913,7 @@ RectTransform:
   m_GameObject: {fileID: 5356185057944329354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.1713, y: 2.1713, z: 2.1713}
   m_Children: []
   m_Father: {fileID: 4532868768269109345}
   m_RootOrder: 1
@@ -1300,8 +1300,8 @@ MonoBehaviour:
   miniGame: {fileID: 3727303724261599194}
   leftGate: {fileID: 7080096897976098752}
   rightGate: {fileID: 3911248113191991018}
-  goodSprite: {fileID: 21300000, guid: 63ab3443a0c86fe43b073fa65667a752, type: 3}
-  badSprite: {fileID: 21300000, guid: 5dd73aaff20cf5746809c6c930838d3c, type: 3}
+  goodSprite: {fileID: 21300000, guid: b7db9868c75cc2a40bef93faa11985b6, type: 3}
+  badSprite: {fileID: 21300000, guid: 2b487ea7f421ba74391892384bf20291, type: 3}
   collectablePrefab: {fileID: 8885629208818008431, guid: 9a0c011361b53b94eba2256eb3870ed1, type: 3}
 --- !u!1 &7703611715963931811
 GameObject:
@@ -1684,7 +1684,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9027383400318280959}
-  m_LocalRotation: {x: 0.116226315, y: 2.520093e-16, z: -2.1650022e-17, w: 0.9932228}
+  m_LocalRotation: {x: 0.11622633, y: -0, z: -0, w: 0.9932228}
   m_LocalPosition: {x: -8, y: 9, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

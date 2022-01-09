@@ -405,7 +405,7 @@ RectTransform:
   m_GameObject: {fileID: 2452303880196232736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.1713, y: 2.1713, z: 2.1713}
   m_Children: []
   m_Father: {fileID: 8799803349707722946}
   m_RootOrder: 1
@@ -798,8 +798,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9fd3de71424163b69daf82de1c89ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1698950532305421230}
   headsOrTails: 1
+  animator: {fileID: 1698950532305421230}
+  miniGame: 0
   miniGameCam: {fileID: 3400929499458683673}
   miniGamesManager: {fileID: 101775550161782320}
 --- !u!1 &5103460944885694990
@@ -910,7 +911,7 @@ RectTransform:
   m_GameObject: {fileID: 5356185057944329354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.1713, y: 2.1713, z: 2.1713}
   m_Children: []
   m_Father: {fileID: 4532868768269109345}
   m_RootOrder: 1
@@ -1297,8 +1298,8 @@ MonoBehaviour:
   miniGame: {fileID: 3727303724261599194}
   leftGate: {fileID: 7080096897976098752}
   rightGate: {fileID: 3911248113191991018}
-  goodSprite: {fileID: 21300000, guid: 63ab3443a0c86fe43b073fa65667a752, type: 3}
-  badSprite: {fileID: 21300000, guid: 5dd73aaff20cf5746809c6c930838d3c, type: 3}
+  goodSprite: {fileID: 21300000, guid: 106b8368fb76c144483164d0f5ede01c, type: 3}
+  badSprite: {fileID: 21300000, guid: 1e3656f6b635a0b429afa26122b31238, type: 3}
   collectablePrefab: {fileID: 8885629208818008431, guid: 9a0c011361b53b94eba2256eb3870ed1, type: 3}
 --- !u!1 &7703611715963931811
 GameObject:

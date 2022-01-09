@@ -21,22 +21,6 @@ public class UIManager : Singleton<UIManager>
   [FoldoutGroup("Panels")] [SerializeField]
   private GameObject failPanel;
 
-  [SerializeField] private GameObject prepareUI;
-  [SerializeField] private GameObject mainGameUI;
-  [SerializeField] private GameObject finishGameUI;
-  [SerializeField] private GameObject gameOverUI;
-  [SerializeField] private GameObject nextLevelUI;
-  [SerializeField] private GameObject tryAgainUI;
-  [SerializeField] private GameObject completeUI;
-  [SerializeField] private GameObject levelUI;
-  [SerializeField] private GameObject coinUI;
-  [SerializeField] private GameObject distanceFinish;
-  [SerializeField] private Slider distanceSlider;
-  [SerializeField] private TextMeshProUGUI currentCoinText;
-  [SerializeField] private TextMeshProUGUI earnedCoinText;
-  [SerializeField] private TextMeshProUGUI totalCoinText;
-  [SerializeField] private TextMeshProUGUI sliderLevelText;
-
 
   public event EventHandler OnGameStart;
   private int sliderLevel = 1;
@@ -47,38 +31,15 @@ public class UIManager : Singleton<UIManager>
     return sliderLevel;
   }
 
-  private void Update()
-  {
-    if(inGamePanel.activeSelf)
-      CalculateRoadDistance();
-    //EqualCurrentCoin();
-    //UpdateCoinInfo();
-  }
-
-  private void CalculateRoadDistance()
-  {
-    if (distanceSlider)
-    {
-      distanceSlider.maxValue = distanceFinish.gameObject.transform.localPosition.z;
-      distanceSlider.value = PlayerManager.Instance.GetPlayerZPosition();
-    }
-  }
-
   public void SetStartingUI()
   {
     SetCoinZeroOnStart();
-    //SetPlayerPrefs();
 
     menuPanel.SetActive(true);
     failPanel.SetActive(false);
     winPanel.SetActive(false);
     inGamePanel.SetActive(false);
 
-    //prepareUI.SetActive(true);
-    //mainGameUI.SetActive(false);
-    //finishGameUI.SetActive(false);
-    //gameOverUI.SetActive(false);
-    //coinUI.SetActive(false);
   }
 
   public void StartGame()
@@ -89,23 +50,6 @@ public class UIManager : Singleton<UIManager>
   private void SetCoinZeroOnStart()
   {
     coin = PlayerPrefs.GetInt(GameConstValues.TOTAL_COIN, 0);
-  }
-
-  public void EarnCoinByCollectables(int value)
-  {
-    coin = coin + value;
-    UpdateCoinInfo();
-  }
-
-  private void EqualCurrentCoin()
-  {
-    currentCoinText.text = coin.ToString();
-  }
-
-  public void UpdateCoinInfo()
-  {
-    earnedCoinText.text = currentCoinText.text;
-    totalCoinText.text = $"{SaveManager.Instance.GetCoin()}";
   }
 
   private void SetPlayerPrefs()
@@ -120,7 +64,7 @@ public class UIManager : Singleton<UIManager>
       PlayerPrefs.SetInt("SliderLevel", sliderLevel);
     }
 
-    sliderLevelText.text = $"{SaveManager.Instance.GetCurrentLevel()}";
+    //sliderLevelText.text = $"{SaveManager.Instance.GetCurrentLevel()}";
   }
 
   public void RetryButton()
@@ -132,7 +76,7 @@ public class UIManager : Singleton<UIManager>
   public void NextLevelButton()
   {
     SaveManager.Instance.LevelUp();
-    sliderLevelText.text = $"{SaveManager.Instance.GetCurrentLevel()}";
+    //sliderLevelText.text = $"{SaveManager.Instance.GetCurrentLevel()}";
   }
 
   public void OpenInGamePanel()
