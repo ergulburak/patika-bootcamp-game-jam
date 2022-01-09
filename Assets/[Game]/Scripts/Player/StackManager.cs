@@ -7,7 +7,7 @@ using Sirenix.Utilities;
 using UnityEngine;
 
 
-public class StackManager : MonoBehaviour
+public class StackManager : Singleton<StackManager>
 {
   [FoldoutGroup("Stack Settings")] [SerializeField]
   protected Transform playerPivot;
@@ -27,7 +27,7 @@ public class StackManager : MonoBehaviour
   [FoldoutGroup("Stack Settings")] [SerializeField] [Range(0f, 2f)]
   private float pulseDelay;
 
-  private List<GameObject> collectables = new List<GameObject>();
+  [SerializeField] private List<GameObject> collectables = new List<GameObject>();
 
   public int GetCollectablesCount()
   {
@@ -44,6 +44,16 @@ public class StackManager : MonoBehaviour
       ? new Vector3(playerPivot.localPosition.x, 0, collectables.Count * offsetMultiplier)
       : new Vector3(collectables[collectables.IndexOf(collectable) - 1].transform.localPosition.x, 0,
         collectables.Count * offsetMultiplier);
+  }
+
+  public void RemoveCollectable(MiniGamesManager miniGamesManager)
+  {
+    if (collectables.Count.Equals(0)) return;
+    var lastCollectable = collectables.Last();
+    lastCollectable.transform.SetParent(miniGamesManager.transform);
+    lastCollectable.gameObject.SetActive(false);
+    collectables.Remove(lastCollectable);
+    miniGamesManager.AddCollectable(lastCollectable);
   }
 
   public void WatchTheFront()
@@ -71,8 +81,10 @@ public class StackManager : MonoBehaviour
   {
     foreach (var collectable in Enumerable.Reverse(collectables).ToList())
     {
+      collectable.transform.DOKill();
+      collectable.transform.localScale = Vector3.one;
       yield return new WaitForSeconds(pulseDelay);
-      if (collectable.SafeIsUnityNull()) yield break;
+      if (collectable.SafeIsUnityNull()) continue;
       collectable.transform.DOPunchScale(new Vector3(pulseScale, pulseScale, pulseScale), pulseDuration, 0, .3f)
         .OnComplete(() => collectable.transform.localScale = Vector3.one);
     }
