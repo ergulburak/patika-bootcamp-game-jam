@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,18 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : Singleton<UIManager>
 {
-  private UIState uiState = UIState.Menu;
+  [FoldoutGroup("Panels")] [SerializeField]
+  private GameObject menuPanel;
+
+  [FoldoutGroup("Panels")] [SerializeField]
+  private GameObject inGamePanel;
+
+  [FoldoutGroup("Panels")] [SerializeField]
+  private GameObject winPanel;
+
+  [FoldoutGroup("Panels")] [SerializeField]
+  private GameObject failPanel;
+
   [SerializeField] private GameObject prepareUI;
   [SerializeField] private GameObject mainGameUI;
   [SerializeField] private GameObject finishGameUI;
@@ -25,6 +37,8 @@ public class UIManager : Singleton<UIManager>
   [SerializeField] private TextMeshProUGUI totalCoinText;
   [SerializeField] private TextMeshProUGUI sliderLevelText;
 
+
+  public event EventHandler OnGameStart;
   private int sliderLevel = 1;
   private int coin;
 
@@ -33,18 +47,12 @@ public class UIManager : Singleton<UIManager>
     return sliderLevel;
   }
 
-  private void Start()
-  {
-    SetStartingUI();
-    SetCoinZeroOnStart();
-    SetPlayerPrefs();
-  }
-
   private void Update()
   {
-    CalculateRoadDistance();
-    EqualCurrentCoin();
-    UpdateCoinInfo();
+    if(inGamePanel.activeSelf)
+      CalculateRoadDistance();
+    //EqualCurrentCoin();
+    //UpdateCoinInfo();
   }
 
   private void CalculateRoadDistance()
@@ -56,18 +64,31 @@ public class UIManager : Singleton<UIManager>
     }
   }
 
-  private void SetStartingUI()
+  public void SetStartingUI()
   {
-    prepareUI.SetActive(true);
-    mainGameUI.SetActive(false);
-    finishGameUI.SetActive(false);
-    gameOverUI.SetActive(false);
-    coinUI.SetActive(false);
+    SetCoinZeroOnStart();
+    //SetPlayerPrefs();
+
+    menuPanel.SetActive(true);
+    failPanel.SetActive(false);
+    winPanel.SetActive(false);
+    inGamePanel.SetActive(false);
+
+    //prepareUI.SetActive(true);
+    //mainGameUI.SetActive(false);
+    //finishGameUI.SetActive(false);
+    //gameOverUI.SetActive(false);
+    //coinUI.SetActive(false);
+  }
+
+  public void StartGame()
+  {
+    OnGameStart?.Invoke(this, EventArgs.Empty);
   }
 
   private void SetCoinZeroOnStart()
   {
-    coin = 0;
+    coin = PlayerPrefs.GetInt(GameConstValues.TOTAL_COIN, 0);
   }
 
   public void EarnCoinByCollectables(int value)
@@ -112,5 +133,23 @@ public class UIManager : Singleton<UIManager>
   {
     SaveManager.Instance.LevelUp();
     sliderLevelText.text = $"{SaveManager.Instance.GetCurrentLevel()}";
+  }
+
+  public void OpenInGamePanel()
+  {
+    menuPanel.SetActive(false);
+    failPanel.SetActive(false);
+    winPanel.SetActive(false);
+    inGamePanel.SetActive(true);
+
+
+  }
+
+  public void OpenLevelSuccessPanel()
+  {
+    menuPanel.SetActive(false);
+    failPanel.SetActive(false);
+    winPanel.SetActive(true);
+    inGamePanel.SetActive(false);
   }
 }

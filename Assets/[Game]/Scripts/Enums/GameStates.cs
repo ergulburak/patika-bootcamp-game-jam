@@ -2,5 +2,6 @@
 {
   Menu,
   InGame,
-  End
+  LevelSuccess,
+  LevelFail
 }

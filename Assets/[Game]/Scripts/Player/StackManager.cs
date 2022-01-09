@@ -7,8 +7,11 @@ using Sirenix.Utilities;
 using UnityEngine;
 
 
-public class StackManager : MovementController
+public class StackManager : Singleton<StackManager>
 {
+  [FoldoutGroup("Stack Settings")] [SerializeField]
+  protected Transform playerPivot;
+
   [FoldoutGroup("Stack Settings")] [SerializeField] [Range(0f, 2f)]
   private float offsetMultiplier;
 
@@ -24,10 +27,14 @@ public class StackManager : MovementController
   [FoldoutGroup("Stack Settings")] [SerializeField] [Range(0f, 2f)]
   private float pulseDelay;
 
-  protected List<GameObject> collectables = new List<GameObject>();
+  [SerializeField] private List<GameObject> collectables = new List<GameObject>();
 
+  public int GetCollectablesCount()
+  {
+    return collectables.Count;
+  }
 
-  private void AddCollectable(GameObject collectable)
+  public void AddCollectable(GameObject collectable)
   {
     if (collectables.Contains(collectable)) return;
     collectables.Add(collectable);
@@ -39,7 +46,17 @@ public class StackManager : MovementController
         collectables.Count * offsetMultiplier);
   }
 
-  protected void WatchTheFront()
+  public void RemoveCollectable(MiniGamesManager miniGamesManager)
+  {
+    if (collectables.Count.Equals(0)) return;
+    var lastCollectable = collectables.Last();
+    lastCollectable.transform.SetParent(miniGamesManager.transform);
+    lastCollectable.gameObject.SetActive(false);
+    collectables.Remove(lastCollectable);
+    miniGamesManager.AddCollectable(lastCollectable);
+  }
+
+  public void WatchTheFront()
   {
     foreach (var collectable in collectables.ToList())
     {
@@ -64,8 +81,10 @@ public class StackManager : MovementController
   {
     foreach (var collectable in Enumerable.Reverse(collectables).ToList())
     {
+      collectable.transform.DOKill();
+      collectable.transform.localScale = Vector3.one;
       yield return new WaitForSeconds(pulseDelay);
-      if (collectable.SafeIsUnityNull()) yield break;
+      if (collectable.SafeIsUnityNull()) continue;
       collectable.transform.DOPunchScale(new Vector3(pulseScale, pulseScale, pulseScale), pulseDuration, 0, .3f)
         .OnComplete(() => collectable.transform.localScale = Vector3.one);
     }
