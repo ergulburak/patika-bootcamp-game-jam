@@ -27,7 +27,6 @@ public class PlayerManager : Singleton<PlayerManager>
 
   public void OnWin()
   {
-    Debug.Log("aa");
     OnFinish?.Invoke(this, EventArgs.Empty);
   }
 

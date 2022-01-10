@@ -4,4 +4,5 @@
   public const string HEADS_OR_TAILS = "HeadsOrTails";
   public const string DART = "Dart";
   public const string MOTORBIKE = "Motorbike";
+  public const string RUN = "Run";
 }

@@ -56,6 +56,19 @@ public class StackManager : Singleton<StackManager>
     miniGamesManager.AddCollectable(lastCollectable);
   }
 
+  public void OnFinishRemoveCollectable(FinishLine finishLine)
+  {
+    if (collectables.Count.Equals(0)) return;
+    var lastCollectable = collectables.Last();
+    lastCollectable.transform.SetParent(finishLine.transform.parent);
+    lastCollectable.GetComponent<Collider>().enabled = false;
+    lastCollectable.transform.DOLocalMove(finishLine.Pivot.localPosition, .8f);
+    lastCollectable.transform.DOLocalRotate(finishLine.Pivot.localEulerAngles, .8f)
+      .OnComplete(() => { lastCollectable.gameObject.SetActive(false); });
+
+    collectables.Remove(lastCollectable);
+  }
+
   public void WatchTheFront()
   {
     foreach (var collectable in collectables.ToList())
