@@ -1,3 +1,5 @@
 # patika-bootcamp-game-jam
-123
-deneme
+Ayşenaz Kara
+Ecem Gökpınar
+Burak Ergül
+Taha Altuntaş
